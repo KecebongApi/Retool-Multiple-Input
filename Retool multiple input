@@ -1,0 +1,87 @@
+//Query Untuk Submit ke Database
+INSERT INTO
+  "eatiket" (
+    "Team",
+    "Engineer",
+    "Stack",
+    "PIC Product",
+    "PIC Engineer",
+    "Summary",
+    "Link Jira",
+    "Issue Key",
+    "Status",
+    "Week",
+    "Story Point",
+    "Category",
+    "Product",
+    "Tech"
+  )
+VALUES
+  (
+    {{team_input.value}},
+    {{engineer_input.value}},
+    {{stack_input.value}},
+    {{PICP_input.value}},
+    {{PICE_input.value}},
+    {{VariableSummary.value}},
+    {{variableLink.value}},
+    {{variableIssue.value}},
+    {{variableStatus.value}},
+    {{variableWeek.value}},
+    {{variableSP.value}},
+    {{variableCategory.value}},
+    {{variableProd.value}},
+    {{variableTech.value}}
+  )
+
+//Looping untuk submit multiple tiket(contoh variable summary di-isikan "" dengan menambahkan query variable)
+let data = ListTiket.data;
+let results = [];
+
+for (let i = 0; i < data.length; i++) {
+  
+  VariableSummary.setValue(data[i].summary_input);
+  results.push(data[i].summary_input);
+
+  variableLink.setValue(data[i].link_input);
+  results.push(data[i].link_input);
+
+  variableIssue.setValue(data[i].issuekey_input);
+  results.push(data[i].issuekey_input);
+
+  variableStatus.setValue(data[i].status_input);
+  results.push(data[i].status_input);
+
+  variableWeek.setValue(data[i].week_input);
+  results.push(data[i].week_input);
+
+  variableSP.setValue(data[i].sp_input);
+  results.push(data[i].sp_input);
+
+  variableCategory.setValue(data[i].category_input);
+  results.push(data[i].category_input);
+
+  variableProd.setValue(data[i].product_input);
+  results.push(data[i].product_input);
+
+  variableTech.setValue(data[i].tech_input);
+  results.push(data[i].tech_input);
+
+  await eatiketCreate.trigger();
+}
+//kode untuk menghapus ketika sudah di submit
+for (let i = 0; i < listViewLegacy1.data.length; i++) { summary_input[i].clearValue(), 
+link_input[i].clearValue(),
+issuekey_input[i].clearValue(),
+status_input[i].clearValue(),
+week_input[i].clearValue(),
+sp_input[i].clearValue(),
+category_input[i].clearValue(),
+product_input[i].clearValue(),
+tech_input[i].clearValue()
+}
+
+return results.join('\n');
+
+
+
